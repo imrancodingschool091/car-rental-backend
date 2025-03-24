@@ -31,7 +31,7 @@ app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/cars', carRoutes);
-app.use('/api/bookings', authenticate, bookingRoutes);
+app.use('/api/bookings',  bookingRoutes);
 
 // Global Error Handler
 app.use((err, req, res, next) => {

@@ -58,3 +58,33 @@ export const login = async (req, res) => {
     res.status(500).json({ message: 'Server error', error: error.message });
   }
 };
+
+
+export const getUsers = async (req, res) => {
+  try {
+    const users = await User.find()
+      .select('-password') // Exclude password field
+      .populate('bookings'); // Populate bookings data
+
+    res.json(users);
+  } catch (error) {
+    res.status(500).json({ message: 'Server error', error: error.message });
+  }
+};
+
+export const getUserById = async (req, res) => {
+  try {
+    const { id } = req.params; // Extract user ID from request params
+
+    // Find user by ID and exclude the password field
+    const user = await User.findById(id).select("-password").populate("bookings");
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.json(user);
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+}

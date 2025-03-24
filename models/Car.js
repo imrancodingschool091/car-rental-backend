@@ -1,6 +1,6 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
-const carSchema = new mongoose.Schema({
+const CarSchema = new mongoose.Schema({
   name: { type: String, required: true },
   brand: { type: String, required: true },
   modelYear: { type: Number, required: true },
@@ -11,8 +11,7 @@ const carSchema = new mongoose.Schema({
   transmission: { type: String, enum: ["Manual", "Automatic"], required: true },
   description: { type: String, required: true },
   imageUrl: { type: String, required: true },
+  bookings: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Booking' }]
 });
 
-const Car = mongoose.model("Car", carSchema);
-
-export default Car;
+export default mongoose.model('Car', CarSchema);

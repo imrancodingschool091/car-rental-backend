@@ -1,8 +1,11 @@
 import mongoose from 'mongoose';
+
 const UserSchema = new mongoose.Schema({
-  name: String,
-  email: { type: String, unique: true },
-  password: String,
-  role: { type: String, enum: ['user', 'professional'], default: 'user' }
+  name: { type: String, required: true },
+  email: { type: String, unique: true, required: true },
+  password: { type: String, required: true },
+  role: { type: String, enum: ['user', 'admin'], default: 'user' },
+  bookings: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Booking' }]
 });
+
 export default mongoose.model('User', UserSchema);
